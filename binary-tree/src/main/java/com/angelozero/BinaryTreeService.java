@@ -1,6 +1,7 @@
 package com.angelozero;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BinaryTreeService {
@@ -69,6 +70,7 @@ public class BinaryTreeService {
 
     private boolean searchHelper(Node root, int value) {
         if (root == null) {
+            searchNodesList = Collections.emptyList();
             return false;
 
         } else if (root.value == value) {
