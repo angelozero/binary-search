@@ -6,8 +6,10 @@ import java.util.List;
 public class BinaryTreeService {
 
     public Node root;
+    public List<Integer> originalNodesList = new ArrayList<>();
     public List<Integer> nodesList = new ArrayList<>();
     public List<Integer> reverseNodesList = new ArrayList<>();
+    public List<Integer> searchNodesList = new ArrayList<>();
 
     public void insert(Node node) {
         root = insertHelper(root, node);
@@ -18,6 +20,7 @@ public class BinaryTreeService {
 
         if (root == null) {
             root = node;
+            originalNodesList.add(root.value);
             return root;
 
         } else if (value < root.value) {
@@ -28,6 +31,10 @@ public class BinaryTreeService {
         }
 
         return root;
+    }
+
+    public List<Integer> getOriginalNodesList() {
+        return this.originalNodesList;
     }
 
     public List<Integer> getNodesList() {
@@ -61,20 +68,36 @@ public class BinaryTreeService {
     }
 
     private boolean searchHelper(Node root, int value) {
-
         if (root == null) {
             return false;
 
         } else if (root.value == value) {
+            addNodeValueSearchNodeList(root);
             return true;
 
         } else if (root.value > value) {
             return searchHelper(root.left, value);
-
         }
 
         return searchHelper(root.right, value);
+    }
 
+    private void addNodeValueSearchNodeList(Node root) {
+        if (root != null) {
+            searchNodesList.add(root.value);
+
+            if (root.left != null) {
+                addNodeValueSearchNodeList(root.left);
+            }
+
+            if (root.right != null) {
+                addNodeValueSearchNodeList(root.right);
+            }
+        }
+    }
+
+    public List<Integer> getSearchNodesList() {
+        return this.searchNodesList;
     }
 
     public void remove(int value) {
@@ -89,10 +112,10 @@ public class BinaryTreeService {
         if (root == null) {
             return root;
 
-        } else if (value < root.value){
+        } else if (value < root.value) {
             root.left = removeHelper(root.left, value);
 
-        } else if (value > root.value ){
+        } else if (value > root.value) {
             root.right = removeHelper(root.right, value);
 
         } else {
@@ -100,12 +123,12 @@ public class BinaryTreeService {
             if (root.left == null && root.right == null) {
                 root = null;
 
-            // find a sucessor to replace this node
+                // find a sucessor to replace this node
             } else if (root.right != null) {
                 root.value = successor(root);
                 root.right = removeHelper(root.right, root.value);
 
-            // find a predecessor to replace this node
+                // find a predecessor to replace this node
             } else {
                 root.value = predecessor(root);
                 root.left = removeHelper(root.left, root.value);
@@ -119,7 +142,7 @@ public class BinaryTreeService {
         // find the least value below the right child of this root node
         root = root.right;
 
-        while (root.left != null){
+        while (root.left != null) {
             root = root.left;
         }
         return root.value;
@@ -129,7 +152,7 @@ public class BinaryTreeService {
         // find the greatest value below the left child of this root node
         root = root.left;
 
-        while (root.right != null){
+        while (root.right != null) {
             root = root.right;
         }
         return root.value;

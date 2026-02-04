@@ -9,26 +9,33 @@ public class Main {
         BinaryTreeService service = new BinaryTreeService();
 
         service.insert(new Node(4));
-        service.insert(new Node(5));
-        service.insert(new Node(7));
-        service.insert(new Node(3));
-        service.insert(new Node(1));
         service.insert(new Node(2));
-        service.insert(new Node(6));
-        service.insert(new Node(9));
-        service.insert(new Node(8));
+        service.insert(new Node(7));
+        service.insert(new Node(1));
+        service.insert(new Node(3));
+//        service.insert(new Node(2));
+//        service.insert(new Node(6));
+//        service.insert(new Node(9));
+//        service.insert(new Node(8));
 
-        service.remove(5);
+//        service.remove(5);
+//
+//        System.out.println();
+//        System.out.println(service.getNodesList());
+//        System.out.println(service.getReverseNodesList());
+//        System.out.println();
+//
+//        var randomValue = getRandomNumber();
+//        System.out.println(service.search(randomValue) ?
+//                "Number " + randomValue + " was found!"
+//                : "Number " + randomValue + " wasn't found!");
 
-        System.out.println();
-        System.out.println(service.getNodesList());
-        System.out.println(service.getReverseNodesList());
-        System.out.println();
+        service.search(2);
+        System.out.println(service.getOriginalNodesList());
+        System.out.println(service.getSearchNodesList());
 
-        var randomValue = getRandomNumber();
-        System.out.println(service.search(randomValue) ?
-                "Number " + randomValue + " was found!"
-                : "Number " + randomValue + " wasn't found!");
+        service.getOriginalNodesList().forEach(System.out::println);
+
 
     }
 
